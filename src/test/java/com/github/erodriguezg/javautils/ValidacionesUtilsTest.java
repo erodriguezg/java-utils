@@ -1,4 +1,4 @@
-package cl.zeke.framework.utils;
+package com.github.erodriguezg.javautils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -130,15 +130,15 @@ public class ValidacionesUtilsTest {
     @Test
     public void url() {
         String[] urlValidas = {
-                "http://www.zeke.cl",
-                "https://www.zeke.cl",
-                "http://www.zeke.cl?p=1",
-                "http://www.zeke.cl?p=1&p2=4",
-                "http://www.zeke.cl?p=1&p2=",
-                "www.zeke.cl",
-                "www.zeke.cl",
-                "www.zeke.cl?p=1&p2=4",
-                "www.zeke.cl?p=1&p2=",
+                "http://www.github.com",
+                "https://www.github.com",
+                "http://www.github.com?p=1",
+                "http://www.github.com?p=1&p2=4",
+                "http://www.github.com?p=1&p2=",
+                "www.github.com",
+                "www.github.com",
+                "www.github.com?p=1&p2=4",
+                "www.github.com?p=1&p2=",
                 "http://stackoverflow.com/questions/163360/regular-expresion-to-match-urls-in-java"
         };
 
@@ -147,7 +147,7 @@ public class ValidacionesUtilsTest {
                 "",
                 " ",
                 "dasdasd",
-                "zeke",
+                "github",
                 "mailinator@mailinator.com",
                 "192.168.0.1",
                 "032 1234567"
@@ -167,10 +167,10 @@ public class ValidacionesUtilsTest {
     @Test
     public void email() {
         String[] emailsValidos = {
-                "nombre@compania.cl",
-                "nombre@compania.gob.cl",
-                "nombre-a@compania.gob.cl",
-                "nombre_a@compania.gob.cl",
+                "nombre@compania.com",
+                "nombre@compania.gob.com",
+                "nombre-a@compania.gob.com",
+                "nombre_a@compania.gob.com",
                 "a@b.cc",
                 "a@b.c.dd"
         };
@@ -179,13 +179,13 @@ public class ValidacionesUtilsTest {
                 null,
                 "",
                 "      ",
-                "nombre@ compania.cl",
-                "nombre@|compania.cl",
-                "nombre@&compania.cl",
-                "nombre@ñcompania.cl",
-                "nombre@compania@.cl",
+                "nombre@ compania.com",
+                "nombre@|compania.com",
+                "nombre@&compania.com",
+                "nombre@ñcompania.com",
+                "nombre@compania@.com",
                 "dadasdad",
-                "algo.cl.d",
+                "algo.com.d",
                 "@@@@"};
 
         for (String valido : emailsValidos) {

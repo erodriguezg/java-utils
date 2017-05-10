@@ -1,8 +1,4 @@
-package cl.zeke.framework.utils;
-
-/**
- * Created by takeda on 04-01-16.
- */
+package com.github.erodriguezg.javautils;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;

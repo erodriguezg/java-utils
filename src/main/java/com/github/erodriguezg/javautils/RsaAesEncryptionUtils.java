@@ -1,8 +1,4 @@
-package cl.zeke.framework.utils;
-
-/**
- * Created by eduardo on 27-10-16.
- */
+package com.github.erodriguezg.javautils;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;

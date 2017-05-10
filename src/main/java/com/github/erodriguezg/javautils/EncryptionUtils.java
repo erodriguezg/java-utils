@@ -1,12 +1,9 @@
-package cl.zeke.framework.utils;
+package com.github.erodriguezg.javautils;
 
 import java.security.Key;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-/**
- * Created by eduardo on 27-10-16.
- */
 public interface EncryptionUtils {
 
     public interface Options {

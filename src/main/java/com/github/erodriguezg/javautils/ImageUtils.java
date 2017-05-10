@@ -1,8 +1,5 @@
-package cl.zeke.framework.utils;
+package com.github.erodriguezg.javautils;
 
-/**
- * Created by takeda on 03-01-16.
- */
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,52 +19,31 @@ public class ImageUtils {
     /**
      * Valida tamaño width y height. si es -1 la omite
      *
-     * @param bufImage
-     * @param width
-     * @param height
-     * @return
+     * @param bufImage imagen de entrada a validar
+     * @param width largo esperado. si es -1 se omite
+     * @param height alto esperado. si es -1 se omite
+     * @return true sí es valido. false en caso contrario
      */
     public boolean proporcionesValidas(BufferedImage bufImage, int width, int height) {
-        if (
-                (bufImage.getWidth() == width || width == -1)
-                        &&
-                        (bufImage.getHeight() == height || height == -1)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (bufImage.getWidth() == width || width == -1) && (bufImage.getHeight() == height || height == -1);
     }
 
     public BufferedImage toBufferImage(byte[] bytesImage) {
-        InputStream imageInputStrem = new ByteArrayInputStream(bytesImage);
-        try {
+        try (InputStream imageInputStrem = new ByteArrayInputStream(bytesImage)) {
             return ImageIO.read(imageInputStrem);
         } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        } finally {
-            try {
-                imageInputStrem.close();
-            } catch (IOException ex) {
-            }
+            throw new IllegalStateException(ex);
         }
     }
 
     public byte[] escalar(byte[] img, int width, int height, String extensionImagen) {
-        try {
-            InputStream is = new ByteArrayInputStream(img);
+        try (InputStream is = new ByteArrayInputStream(img);
+             ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             BufferedImage bufImage = ImageIO.read(is);
-            is.close();
-
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(escalar(bufImage, width, height), extensionImagen, os);
-
-            byte[] nuevaImagenBytes = os.toByteArray();
-            os.close();
-            return nuevaImagenBytes;
+            return os.toByteArray();
         } catch (Exception ex) {
-            ex.printStackTrace();
-            throw new RuntimeException("error escalar");
+            throw new IllegalStateException(ex);
         }
     }
 

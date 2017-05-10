@@ -1,27 +1,22 @@
-package cl.zeke.framework.utils;
+package com.github.erodriguezg.javautils;
 
-/**
- * Created by takeda on 03-01-16.
- */
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidacionesUtils {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ValidacionesUtils.class);
+
     public boolean emailValido(String email) {
         if (email == null) {
             return false;
         }
-
         Pattern pat = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher mat = pat.matcher(email);
-
-        if (mat.find()) {
-            return true;
-        } else {
-            return false;
-        }
+        return mat.find();
     }
 
     public boolean fonoMovilValido(String email) {
@@ -54,16 +49,16 @@ public class ValidacionesUtils {
         return password.matches(regex);
     }
 
-    public boolean validarRut(String rut) {
-        if (rut == null) {
+    public boolean validarRut(String rutEntrada) {
+        if (rutEntrada == null) {
             return false;
         }
 
         try {
-            rut = rut.replace(".", "");
+            String rut = rutEntrada.replace(".", "");
 
             Integer usrRut = Integer.valueOf(rut.split("-")[0]);
-            String usrDv = rut.charAt(rut.length() - 1) + "";
+            String usrDv = Character.toString(rut.charAt(rut.length() - 1));
 
             if (usrRut == null || usrRut < 1) {
                 return false;
@@ -73,8 +68,9 @@ public class ValidacionesUtils {
 
             char dv = calculaDigitoVerificador(usrRut);
 
-            return usrDv.equals(new String("" + dv));
+            return usrDv.equals(String.valueOf(dv));
         } catch (Exception ex) {
+            LOG.trace("Ocurrio un error validando rut: ", ex);
             return false;
         }
 
@@ -104,20 +100,22 @@ public class ValidacionesUtils {
         return texto.matches(regex);
     }
 
-    private char calculaDigitoVerificador(Integer T) {
-        int M = 0, S = 1;
-        for (; T != 0; T /= 10) {
-            S = (S + T % 10 * (9 - M++ % 6)) % 11;
+    private char calculaDigitoVerificador(Integer rutEntero) {
+        int m = 0;
+        int s = 1;
+        int t = rutEntero;
+        for (; t != 0; t /= 10) {
+            s = (s + t % 10 * (9 - m++ % 6)) % 11;
         }
-        return (char) (S != 0 ? S + 47 : 75);
+        return (char) (s != 0 ? s + 47 : 75);
     }
 
     public boolean telefonoValido(String value) {
-        if(value == null) {
+        if (value == null) {
             return false;
         }
         String exp1 = "(^\\+\\d{1,4}\\s?\\d{1,2}\\s?\\d{7,8}$)";
         String exp2 = "(^\\d{1,2}\\s\\d{7,8}$)";
-        return value.matches(exp1 + "|"+exp2);
+        return value.matches(exp1 + "|" + exp2);
     }
 }

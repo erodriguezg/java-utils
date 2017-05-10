@@ -1,4 +1,4 @@
-package cl.zeke.framework.utils;
+package com.github.erodriguezg.javautils;
 
 /**
  * Created by eduardo on 27-10-16.

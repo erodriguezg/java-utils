@@ -1,8 +1,4 @@
-package cl.zeke.framework.utils;
-
-/**
- * Created by takeda on 03-01-16.
- */
+package com.github.erodriguezg.javautils;
 
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
@@ -16,14 +12,9 @@ public class QRUtils {
     }
 
     public byte[] generarBufferedImageQR(String texto, ImageType imageType, int largo, int alto) {
-        try {
-            QRCode qrcode = generarQR(texto).withSize(largo, alto).to(imageType);
-            ByteArrayOutputStream os = qrcode.stream();
-            byte[] qrBytes = os.toByteArray();
-            os.flush();
-            os.close();
-            os = null;
-            return qrBytes;
+        QRCode qrcode = generarQR(texto).withSize(largo, alto).to(imageType);
+        try(ByteArrayOutputStream os = qrcode.stream()) {
+            return os.toByteArray();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }

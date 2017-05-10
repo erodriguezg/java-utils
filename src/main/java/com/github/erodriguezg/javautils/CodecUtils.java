@@ -1,16 +1,16 @@
-package cl.zeke.framework.utils;
-
-/**
- * Created by takeda on 03-01-16.
- */
+package com.github.erodriguezg.javautils;
 
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 
 public class CodecUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CodecUtils.class);
 
     public enum TypeHash {
         MD5("md5"), SHA1("sha1");
@@ -41,7 +41,7 @@ public class CodecUtils {
             }
             return result.toString();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOG.error("error generarHash: ", ex);
             throw new RuntimeException("Problema al generar hash");
         }
 
@@ -50,10 +50,10 @@ public class CodecUtils {
     public String generarHash(TypeHash typeHash) {
         try {
             SecureRandom prng = SecureRandom.getInstance("SHA1PRNG");
-            String randomNum = new Integer(prng.nextInt()).toString();
+            String randomNum = Integer.toString(prng.nextInt());
             return generarHash(typeHash, randomNum);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOG.error("error generarHash:", ex);
             throw new RuntimeException("Problema al generar hash");
         }
     }

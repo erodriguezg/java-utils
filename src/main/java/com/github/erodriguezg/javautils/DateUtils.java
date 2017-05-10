@@ -1,12 +1,9 @@
-package cl.zeke.framework.utils;
+package com.github.erodriguezg.javautils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by eduardo on 20-02-17.
- */
 public class DateUtils {
 
     public Date sumarDias(Date date, int dias) {

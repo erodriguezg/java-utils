@@ -1,4 +1,4 @@
-package cl.zeke.framework.utils;
+package com.github.erodriguezg.javautils;
 
 /**
  * Created by takeda on 04-01-16.

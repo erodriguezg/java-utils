@@ -1,4 +1,4 @@
-package cl.zeke.framework.utils;
+package com.github.erodriguezg.javautils;
 
 /**
  * Created by takeda on 03-01-16.
@@ -19,7 +19,7 @@ public class XmlUtils {
 
     private final static Logger LOG = LoggerFactory.getLogger(XmlUtils.class);
 
-    public final <T> String marshal(T generic) {
+    public <T> String marshal(T generic) {
         try {
             StringWriter writer = new StringWriter();
             JAXBContext context = JAXBContext.newInstance(generic.getClass());
@@ -32,26 +32,17 @@ public class XmlUtils {
         }
     }
 
-    public final <T> T unmarshal(String xml, Class<T> clazz) {
+    public <T> T unmarshal(String xml, Class<T> clazz) {
         if (xml == null || xml.isEmpty()) {
             return null;
         }
-        ByteArrayInputStream is = null;
-        try {
-            is = new ByteArrayInputStream(xml.getBytes());
+        try (ByteArrayInputStream is = new ByteArrayInputStream(xml.getBytes())) {
             JAXBContext context = JAXBContext.newInstance(clazz);
             Unmarshaller um = context.createUnmarshaller();
             return (T) um.unmarshal(is);
-        } catch (JAXBException ex) {
+        } catch (IOException | JAXBException ex) {
             LOG.error("error unmarshall", ex);
             return null;
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                }
-            }
         }
     }
 

@@ -49,13 +49,21 @@ public class ArchivoUtils {
     }
 
     public static File obtenerClasspathFile(String path) {
+        return obtenerClasspathFile(path, ".tmp", ArchivoUtils.class);
+    }
+
+    public static File obtenerClasspathFile(String path, Class clazz) {
+        return obtenerClasspathFile(path, ".tmp", clazz);
+    }
+
+    public static File obtenerClasspathFile(String path, String suffix, Class clazz) {
         File fileTemp;
         try {
-            fileTemp = File.createTempFile(UUID.randomUUID().toString(), ".tmp");
+            fileTemp = File.createTempFile(UUID.randomUUID().toString(), suffix);
         } catch (IOException ex) {
             throw new IllegalStateException(ex);
         }
-        try (InputStream inputStream = ArchivoUtils.class.getResourceAsStream(path);
+        try (InputStream inputStream = clazz.getResourceAsStream(path);
              OutputStream outputStream = new FileOutputStream(fileTemp)) {
             IOUtils.copy(inputStream, outputStream);
             return fileTemp;
@@ -65,7 +73,11 @@ public class ArchivoUtils {
     }
 
     public static InputStream obtenerClassPathInputStream(String path) {
-        return ArchivoUtils.class.getResourceAsStream(path);
+        return obtenerClassPathInputStream(path, ArchivoUtils.class);
+    }
+
+    public static InputStream obtenerClassPathInputStream(String path, Class clazz) {
+        return clazz.getResourceAsStream(path);
     }
 
     public static File crearArchivoDesdeExcepcion(Exception ex) {

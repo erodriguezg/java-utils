@@ -12,7 +12,7 @@
 
     <groupId>com.github.erodriguezg</groupId>
     <artifactId>java-utils</artifactId>
-    <version>8.1.0</version>
+    <version>8.2.0</version>
     <name>github erodriguezg java utils</name>
     <description>Clases utilitarias para desarrollo Java JDK 8</description>
     <url>https://github.com/erodriguezg/java-utils</url>

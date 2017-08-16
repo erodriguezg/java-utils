@@ -109,14 +109,13 @@ public class DataDirectoryUtils {
         //se crea nuevo recurso
         try (FileOutputStream fos = new FileOutputStream(directorioBase + urlRecurso)) {
             IOUtils.copy(inputStream, fos);
+            fos.flush();
         } catch (Exception ex) {
             LOG.error("error", ex);
-            throw new RuntimeException("problema al guardar recurso: " + urlRecurso);
+            throw new IllegalStateException("problema al guardar recurso: " + urlRecurso);
         } finally {
             try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
+                inputStream.close();
             } catch (Exception ex) {
                 LOG.warn("No se pudo cerrar inputstream: ", ex);
             }

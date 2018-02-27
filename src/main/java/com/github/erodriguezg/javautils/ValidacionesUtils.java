@@ -118,4 +118,13 @@ public class ValidacionesUtils {
         String exp2 = "(^\\d{1,2}\\s\\d{7,8}$)";
         return value.matches(exp1 + "|" + exp2);
     }
+
+    public boolean textoSimpleValido(String texto) {
+        if (texto == null) {
+            return false;
+        }
+        String regex = "([a-zA-Z\\d\\sñÑáÁéÉíÍóÓúÚäëïöüÄËÏÖÜ\\.,!¡¿?:;\\-_]*)";
+        return texto.matches(regex);
+    }
+
 }

@@ -293,4 +293,38 @@ public class ValidacionesUtilsTest {
         }
     }
 
+    @Test
+    public void textoSimple() {
+
+        String[] validos = {
+                "HOLA MUNDO 123 ",
+                "hola mundo 321 ",
+                " hola 12 22 mundo ",
+                "qwertyuioopa23123sdfghjkklñzxcvbnnm",
+                "QWERTY2UI1OPASD2F4GHJKLÑZXCVBNM",
+                "áé3íó2úä1ËÏöü",
+                "ÁÉÍÓÚÄËÏÖÜ",
+                "",
+                "    ",
+                "-_",
+                "¡!",
+                "¿?",
+                ".,",
+                ":;"
+        };
+
+        String[] invalidos = {
+                null,
+                "&","#", "$", "%", "+"
+        };
+
+        for (String valido : validos) {
+            assertEquals("textoSimple: " + valido, true, validacionesUtils.textoSimpleValido(valido));
+        }
+
+        for (String invalido : invalidos) {
+            assertEquals("textoSimple: " + invalido, false, validacionesUtils.textoSimpleValido(invalido));
+        }
+    }
+
 }

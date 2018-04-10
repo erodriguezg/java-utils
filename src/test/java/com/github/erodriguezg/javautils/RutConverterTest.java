@@ -81,6 +81,9 @@ public class RutConverterTest {
         resultado = converter.asString(10501725);
         assertEquals("10.501.725-1", resultado);
 
+        resultado = converter.asString(11111111);
+        assertEquals("11.111.111-1", resultado);
+
         resultado = converter.asString(null);
         assertEquals(null, resultado);
     }

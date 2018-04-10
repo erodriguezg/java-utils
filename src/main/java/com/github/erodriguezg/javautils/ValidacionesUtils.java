@@ -10,11 +10,14 @@ public class ValidacionesUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(ValidacionesUtils.class);
 
+    private static final String REGEX_EMAIL = "^([A-Z0-9_%+-]+\\.?)+@([A-Z0-9-]+\\.)+[A-Z]{2,6}$";
+
+
     public boolean emailValido(String email) {
         if (email == null) {
             return false;
         }
-        Pattern pat = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Pattern pat = Pattern.compile(REGEX_EMAIL, Pattern.CASE_INSENSITIVE);
         Matcher mat = pat.matcher(email);
         return mat.find();
     }
@@ -107,7 +110,7 @@ public class ValidacionesUtils {
         for (; t != 0; t /= 10) {
             s = (s + t % 10 * (9 - m++ % 6)) % 11;
         }
-        return (char) (s != 0 ? s + 47 : 75);
+        return (char) ((s > 0) ? (s + 47) : 75);
     }
 
     public boolean telefonoValido(String value) {

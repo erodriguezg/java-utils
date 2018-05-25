@@ -21,7 +21,12 @@ public class RutConverterTest {
                 "15932446-5",
                 "15932426-K",
                 "11111111-3",
-                "11.111.111-2"
+                "11.111.111-2",
+                "11.111.111-",
+                ".-",
+                "--",
+                ".",
+                "-"
         };
 
         for (String invalido : rutsInvalidos) {

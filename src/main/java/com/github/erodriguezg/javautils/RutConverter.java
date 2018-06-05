@@ -18,7 +18,7 @@ public class RutConverter {
             return null;
         }
 
-        String rutField;
+        final String rutField;
         char digito = 'c';
 
 		/*
@@ -31,8 +31,52 @@ public class RutConverter {
          * Get the string value of the current field
 		 */
         rutField = rutTexto.trim();
-        String rutConPuntos = rutField.split("-")[0];
+        String rutConPuntos = rutField.split("-").length > 0 ? rutField.split("-")[0] : "";
         String[] arreglorutSinPuntos = rutConPuntos.split("\\.");
+
+        String rutSinPuntos = generarRutSinPuntos(arreglorutSinPuntos);
+
+        if (rutField.split("-").length > 1) {
+            /*
+			 * validar la forma del rut
+			 */
+            Matcher matcher = mask.matcher(rutSinPuntos + "-" + rutField.split("-")[1]);
+            if (!matcher.matches()) {
+                throw new RutConverterException("Por favor ingrese RUN en formato correcto");
+            }
+        }
+
+		/*
+		 * validar digito verificador
+		 */
+        //divide el rut que tiene la forma "XXXXXXXX-X"
+        if (rutField.split("-").length > 1) {
+            digito = rutField.split("-")[1].charAt(0);
+            //validar que sean numeros positivos
+            if (Integer.parseInt(rutSinPuntos) < 1 || digito < 0) {
+                throw new RutConverterException("RUN invalido");
+            }
+        }
+        //algoritmo raro sacado de algun lado
+        int m = 0;
+        int s = 1;
+        int t = Integer.parseInt(rutSinPuntos);
+        for (; t != 0; t /= 10) {
+            s = (s + t % 10 * (9 - m++ % 6)) % 11;
+        }
+        char digitoAux = (char) (s != 0 ? s + 47 : 75);
+
+		/*
+		 * Si el digito verificador no es valido manda exception
+		 */
+        if (!String.valueOf(digito).equalsIgnoreCase(String.valueOf(digitoAux).toUpperCase())) {
+            throw new RutConverterException("Dígito verificador incorrecto");
+        }
+
+        return Integer.parseInt(rutSinPuntos);
+    }
+
+    private String generarRutSinPuntos(String[] arreglorutSinPuntos) {
         String rutSinPuntos = "";
 
         for (int i = 0; i < arreglorutSinPuntos.length; i++) {
@@ -58,42 +102,7 @@ public class RutConverter {
             throw new RutConverterException("Por favor ingrese RUN en formato correcto");
         }
 
-        if (rutField.contains("-")) {
-            /*
-			 * validar la forma del rut
-			 */
-            Matcher matcher = mask.matcher(rutSinPuntos + "-" + rutField.split("-")[1]);
-            if (!matcher.matches()) {
-                throw new RutConverterException("Por favor ingrese RUN en formato correcto");
-            }
-        }
-
-		/*
-		 * validar digito verificador
-		 */
-        //divide el rut que tiene la forma "XXXXXXXX-X"
-        if (rutField.contains("-")) {
-            digito = rutField.split("-")[1].charAt(0);
-            //validar que sean numeros positivos
-            if (Integer.parseInt(rutSinPuntos) < 1 || digito < 0) {
-                throw new RutConverterException("RUN invalido");
-            }
-        }
-        //algoritmo raro sacado de algun lado
-        int M = 0, S = 1, T = Integer.parseInt(rutSinPuntos);
-        for (; T != 0; T /= 10) {
-            S = (S + T % 10 * (9 - M++ % 6)) % 11;
-        }
-        char digitoAux = (char) (S != 0 ? S + 47 : 75);
-
-		/*
-		 * Si el digito verificador no es valido manda exception
-		 */
-        if (!String.valueOf(digito).toUpperCase().equals(String.valueOf(digitoAux).toUpperCase())) {
-            throw new RutConverterException("Dígito verificador incorrecto");
-        }
-
-        return Integer.parseInt(rutSinPuntos);
+        return rutSinPuntos;
     }
 
     public String asString(Integer rutEntero) {
@@ -108,13 +117,13 @@ public class RutConverter {
             rut = (Integer) rutEntero;
         }
         if (rut > 0) {
-            int M = 0;
-            int S = 1;
-            int T = (Integer) rut;
-            for (; T != 0; T /= 10) {
-                S = (S + T % 10 * (9 - M++ % 6)) % 11;
+            int m = 0;
+            int s = 1;
+            int t = (Integer) rut;
+            for (; t != 0; t /= 10) {
+                s = (s + t % 10 * (9 - m++ % 6)) % 11;
             }
-            char digitoAux = (char) (S != 0 ? S + 47 : 75);
+            char digitoAux = (char) (s != 0 ? s + 47 : 75);
             DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols();
             formatSymbols.setGroupingSeparator('.');
             DecimalFormat df = new DecimalFormat();

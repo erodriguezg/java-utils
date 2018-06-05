@@ -171,6 +171,7 @@ public class ValidacionesUtilsTest {
                 "nombre@compania.gob.com",
                 "nombre-a@compania.gob.com",
                 "nombre_a@compania.gob.com",
+                "nombre.apellido@compania.cl",
                 "a@b.cc",
                 "a@b.c.dd"
         };
@@ -184,6 +185,10 @@ public class ValidacionesUtilsTest {
                 "nombre@&compania.com",
                 "nombre@ñcompania.com",
                 "nombre@compania@.com",
+                "nombre@compania..com",
+                "nombre..@compania.com",
+                "nombre..apellido@compania.com",
+                "user@.invalid.com",
                 "dadasdad",
                 "algo.com.d",
                 "@@@@"};

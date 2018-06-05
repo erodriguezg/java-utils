@@ -327,4 +327,33 @@ public class ValidacionesUtilsTest {
         }
     }
 
+    @Test
+    public void alfabeticoParaNombres() {
+
+        String[] validos = {
+                "HOLA MUNDO",
+                "hola mundo",
+                " hola mundo ",
+                "qwertyuioopasdfghjkklñzxcvbnnm",
+                "QWERTYUIOPASDFGHJKLÑZXCVBNM",
+                "áéíóúäËÏöü,'",
+                "ÁÉÍÓÚÄËÏÖÜ.-",
+                "",
+                "    "
+        };
+
+        String[] invalidos = {
+                null,
+                "!", "#", "$", "%", "+", "_", ";", ":", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
+        };
+
+        for (String valido : validos) {
+            assertEquals("alfabetico: " + valido, true, validacionesUtils.textoAlfabeticoParaNombresValido(valido));
+        }
+
+        for (String invalido : invalidos) {
+            assertEquals("alfabetico: " + invalido, false, validacionesUtils.textoAlfabeticoParaNombresValido(invalido));
+        }
+    }
+
 }

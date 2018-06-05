@@ -100,6 +100,14 @@ public class ValidacionesUtils {
         return texto.matches(regex);
     }
 
+    public boolean textoAlfabeticoParaNombresValido(String texto) {
+        if (texto == null) {
+            return false;
+        }
+        String regex = "([a-zA-Z\\sñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ\\-'\\.,]*)";
+        return texto.matches(regex);
+    }
+
     private char calculaDigitoVerificador(Integer rutEntero) {
         int m = 0;
         int s = 1;

@@ -23,6 +23,7 @@ public class RutConverterTest {
                 "11111111-3",
                 "11.111.111-2",
                 "11.111.111-",
+                "11111111-",
                 ".-",
                 "--",
                 ".",
@@ -31,43 +32,53 @@ public class RutConverterTest {
 
         for (String invalido : rutsInvalidos) {
             try {
-                Integer numero = (Integer) converter.asInteger(invalido);
+                Integer numero = converter.asInteger(invalido);
                 fail("Deberia haber fallado. esperado '" + invalido + "'retorno: '" + numero);
             } catch (RutConverterException ex) {
+                // pasa por aqui para no fallar
             }
         }
 
         // casos que deberia funcionar
 
-        Integer numero = (Integer) converter.asInteger("15932446-k");
+        Integer numero = converter.asInteger("15932446-k");
         assertEquals(15932446, (int) numero);
 
-        numero = (Integer) converter.asInteger("15932446-K");
+        numero = converter.asInteger("15932446-K");
         assertEquals(15932446, (int) numero);
 
-        numero = (Integer) converter.asInteger("15.932.446-k");
+        numero = converter.asInteger("15.932.446-k");
         assertEquals(15932446, (int) numero);
 
-        numero = (Integer) converter.asInteger("15.932.446-K");
+        numero = converter.asInteger("15.932.446-K");
         assertEquals(15932446, (int) numero);
 
-        numero = (Integer) converter.asInteger("1-9");
+        numero = converter.asInteger("1-9");
         assertEquals(1, (int) numero);
 
-        numero = (Integer) converter.asInteger("10.501.725-1");
+        numero = converter.asInteger("10.501.725-1");
         assertEquals(10501725, (int) numero);
 
-        numero = (Integer) converter.asInteger("11.111.111-1");
+        numero = converter.asInteger("11.111.111-1");
         assertEquals(11111111, (int) numero);
 
-        numero = (Integer) converter.asInteger(null);
+        numero = converter.asInteger(null);
         assertEquals(null, numero);
 
-        numero = (Integer) converter.asInteger("");
+        numero = converter.asInteger("");
         assertEquals(null, numero);
 
-        numero = (Integer) converter.asInteger("   ");
+        numero = converter.asInteger("   ");
         assertEquals(null, numero);
+
+        numero = converter.asInteger("111111111");
+        assertEquals(11111111, (int) numero);
+
+        numero = converter.asInteger("158288249");
+        assertEquals(15828824, (int) numero);
+
+        numero = converter.asInteger("19");
+        assertEquals(1, (int) numero);
 
     }
 

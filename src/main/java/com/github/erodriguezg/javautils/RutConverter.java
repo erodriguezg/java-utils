@@ -18,7 +18,6 @@ public class RutConverter {
             return null;
         }
 
-        final String rutField;
         char digito = 'c';
 
 		/*
@@ -30,8 +29,13 @@ public class RutConverter {
 		/*
          * Get the string value of the current field
 		 */
-        rutField = rutTexto.trim();
-        String rutConPuntos = rutField.split("-").length > 0 ? rutField.split("-")[0] : "";
+        final String rutConPuntos;
+        final String rutField;
+
+        String[] auxRutArray = generarRutFieldYRutConPuntos(rutTexto);
+        rutField = auxRutArray[0];
+        rutConPuntos = auxRutArray[1];
+
         String[] arreglorutSinPuntos = rutConPuntos.split("\\.");
 
         String rutSinPuntos = generarRutSinPuntos(arreglorutSinPuntos);
@@ -76,25 +80,34 @@ public class RutConverter {
         return Integer.parseInt(rutSinPuntos);
     }
 
+    private String[] generarRutFieldYRutConPuntos(String rutTexto) {
+        String rutField = rutTexto.trim();
+        String rutConPuntos;
+        if(rutField.contains("-") || rutField.length() < 2) {
+            rutConPuntos = rutField.split("-").length > 0 ? rutField.split("-")[0] : "";
+        }else {
+            rutConPuntos = rutField.subSequence(0, rutField.length()-1).toString();
+            rutField = rutConPuntos + "-" + rutField.subSequence(rutField.length()-1, rutField.length()).toString();
+        }
+        return new String[] {rutField, rutConPuntos};
+    }
+
     private String generarRutSinPuntos(String[] arreglorutSinPuntos) {
-        String rutSinPuntos = "";
+        StringBuilder sb1 = new StringBuilder("");
 
         for (int i = 0; i < arreglorutSinPuntos.length; i++) {
-            rutSinPuntos = rutSinPuntos + arreglorutSinPuntos[i];
+            sb1.append(arreglorutSinPuntos[i]);
         }
 
-        rutSinPuntos = rutSinPuntos.trim();
-        rutSinPuntos = rutSinPuntos.toUpperCase();
+        String[] arreglorutSinComas = sb1.toString().trim().toUpperCase().split("\\,");
 
-        String[] arreglorutSinComas = rutSinPuntos.split("\\,");
-
-        rutSinPuntos = "";
+        StringBuilder sb2 = new StringBuilder("");
         for (int i = 0; i < arreglorutSinComas.length; i++) {
-            rutSinPuntos = rutSinPuntos + arreglorutSinComas[i];
+            sb2.append(arreglorutSinComas[i]);
         }
 
         try {
-            int rutInt = Integer.parseInt(rutSinPuntos);
+            int rutInt = Integer.parseInt(sb2.toString());
             if (rutInt < 0) {
                 throw new NumberFormatException();
             }
@@ -102,7 +115,7 @@ public class RutConverter {
             throw new RutConverterException("Por favor ingrese RUN en formato correcto");
         }
 
-        return rutSinPuntos;
+        return sb2.toString();
     }
 
     public String asString(Integer rutEntero) {

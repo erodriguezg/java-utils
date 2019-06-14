@@ -134,7 +134,7 @@ public class ValidacionesUtils {
         if (texto == null) {
             return false;
         }
-        String regex = "([a-zA-Z\\d\\sñÑáÁéÉíÍóÓúÚäëïöüÄËÏÖÜ\\.,!¡¿?:;\\-_]*)";
+        String regex = "([a-zA-Z\\d\\sñÑáÁéÉíÍóÓúÚäëïöüÄËÏÖÜ\\.,!¡¿?:;\\-_\\(\\)]*)";
         return texto.matches(regex);
     }
 

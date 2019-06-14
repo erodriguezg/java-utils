@@ -300,7 +300,6 @@ public class ValidacionesUtilsTest {
 
     @Test
     public void textoSimple() {
-
         String[] validos = {
                 "HOLA MUNDO 123 ",
                 "hola mundo 321 ",
@@ -315,7 +314,8 @@ public class ValidacionesUtilsTest {
                 "¡!",
                 "¿?",
                 ".,",
-                ":;"
+                ":;",
+                "().,¡!¿?:;-_"
         };
 
         String[] invalidos = {

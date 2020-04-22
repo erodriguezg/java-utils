@@ -5,10 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by takeda on 04-01-16.
- */
-
+@SuppressWarnings("java:S1192")
 public class ValidacionesUtilsTest {
 
     private ValidacionesUtils validacionesUtils;
@@ -188,6 +185,7 @@ public class ValidacionesUtilsTest {
                 "nombre@compania..com",
                 "nombre..@compania.com",
                 "nombre..apellido@compania.com",
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaa..aa",
                 "user@.invalid.com",
                 "dadasdad",
                 "algo.com.d",

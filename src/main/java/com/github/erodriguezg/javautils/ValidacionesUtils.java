@@ -10,7 +10,7 @@ public class ValidacionesUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(ValidacionesUtils.class);
 
-    private static final String REGEX_EMAIL = "^([A-Z0-9_%+-]+\\.?)+@([A-Z0-9-]+\\.)+[A-Z]{2,6}$";
+    private static final String REGEX_EMAIL = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
 
 
     public boolean emailValido(String email) {

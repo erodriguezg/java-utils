@@ -61,7 +61,7 @@
         <version.commons-lang>2.6</version.commons-lang>
         <version.tika>1.21</version.tika>
         <version.qrgen>1.2</version.qrgen>
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13.1</version.junit>
         <version.assertj>2.2.0</version.assertj>
         <version.mockito>1.10.19</version.mockito>
     </properties>

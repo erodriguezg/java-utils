@@ -56,7 +56,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.slf4j>1.7.25</version.slf4j>
         <version.commons-codec>1.9</version.commons-codec>
-        <version.commons-io>2.4</version.commons-io>
+        <version.commons-io>2.7</version.commons-io>
         <version.commons-lang3>3.3.2</version.commons-lang3>
         <version.commons-lang>2.6</version.commons-lang>
         <version.tika>1.21</version.tika>
